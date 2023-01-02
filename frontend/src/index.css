@@ -17,3 +17,27 @@ header a {
   font-weight: bold;
   text-decoration: none;
 }
+
+main {
+  padding: 1rem;
+}
+
+.sanpham {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.sp {
+  border: 1px #000000 solid;
+  margin: 1rem;
+}
+
+.sp img {
+  width: 325px;
+  height: 400px;
+}
+
+.sp-thongtin {
+  padding: 1rem;
+}
