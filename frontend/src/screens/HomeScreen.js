@@ -4,6 +4,7 @@ import logger from 'use-reducer-logger';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import SanPham from '../components/SanPham';
+import { Helmet } from 'react-helmet-async';
 
 const reducer = ( state, action ) => {
     switch ( action.type ) {
@@ -38,6 +39,9 @@ function HomeScreen() {
     }, [] );
     return (
         <div>
+            <Helmet>
+                <title>Trầm Nhi's Store</title>
+            </Helmet>
             <h1>Sản phẩm nổi bật</h1>
             <div className="sanpham">
                 { loading ? (

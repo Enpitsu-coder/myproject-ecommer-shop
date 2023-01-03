@@ -19,9 +19,9 @@ function App() {
           </Navbar>
         </header>
         <main>
-          <Container>
+          <Container className='mt-3'>
             <Routes>
-              <Route path="/sanpham/:slug" element={ <SanPhamScreen /> } />
+              <Route path="/sanpham/slug/:slug" element={ <SanPhamScreen /> } />
               <Route path="/" element={ <HomeScreen /> } />
             </Routes>
           </Container>
