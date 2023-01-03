@@ -7,19 +7,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-header {
-  background-color: #000000;
-  padding: 1rem;
-}
-
-header a {
-  color: #ffffff;
-  font-weight: bold;
-  text-decoration: none;
+.site-container {
+  min-height: 100vh;
 }
 
 main {
-  padding: 1rem;
+  flex: 1;
 }
 
 .sanpham {
@@ -34,8 +27,8 @@ main {
 }
 
 .sp img {
-  width: 325px;
-  height: 400px;
+  width: 280px;
+  height: 350px;
 }
 
 .sp-thongtin {
