@@ -7,7 +7,7 @@ app.get( '/api/sanpham', ( req, res ) => {
     res.send( data.sanpham );
 } );
 
-const port = process.env.PORT || 9000;
+const port = process.env.PORT || 5000;
 app.listen( port, () => {
     console.log( `serve at http://localhost:${ port }` );
 } );
