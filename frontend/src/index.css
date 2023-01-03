@@ -15,10 +15,19 @@ main {
   flex: 1;
 }
 
+.btn-primary {
+  background-color: #000000;
+  color: #ffffff;
+}
+
 .sanpham {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+}
+
+.rating span {
+  color: #ffc000;
 }
 
 .sp {
@@ -27,6 +36,13 @@ main {
 }
 
 .sp img {
+  width: 280px;
+  height: 350px;
+}
+
+.card-img,
+.card-img-bottom,
+.card-img-top {
   width: 280px;
   height: 350px;
 }

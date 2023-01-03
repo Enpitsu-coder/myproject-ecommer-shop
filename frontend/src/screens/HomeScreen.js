@@ -1,7 +1,9 @@
-import { useEffect, useReducer, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useReducer } from 'react';
 import axios from 'axios';
 import logger from 'use-reducer-logger';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import SanPham from '../components/SanPham';
 
 const reducer = ( state, action ) => {
     switch ( action.type ) {
@@ -43,20 +45,13 @@ function HomeScreen() {
                 ) : error ? (
                     <div>{ error }</div>
                 ) : (
-                    sanpham.map( ( sp ) => (
-                        <div className="sp" key={ sp.slug }>
-                            <Link to={ `/sanpham/${ sp.slug }` }>
-                                <img src={ sp.anh } alt={ sp.tensp } />
-                            </Link>
-                            <div className="sp-thongtin">
-                                <Link to={ `/sanpham/${ sp.slug }` }>
-                                    <p>{ sp.tensp }</p>
-                                </Link>
-                                <p><strong>{ sp.gia } VNĐ</strong></p>
-                                <button>Thêm vào giỏ</button>
-                            </div>
-                        </div>
-                    ) )
+                    <Row>
+                        { sanpham.map( ( sp ) => (
+                            <Col key={ sp.slug } sm={ 6 } md={ 4 } lg={ 3 } className="mb-3">
+                                <SanPham sp={ sp }>S</SanPham>
+                            </Col>
+                        ) ) }
+                    </Row>
                 ) }
             </div>
         </div >
