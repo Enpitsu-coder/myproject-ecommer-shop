@@ -59,7 +59,7 @@ export default function GioHangScreen() {
                                                 alt={ hang.tensp }
                                                 className="img-fluid rounded img-thumbnail"
                                             ></img>{ ' ' }
-                                            <Link to={ `/sanpham/${ hang.slug }` }>{ hang.tensp }</Link>
+                                            <Link to={ `/sanpham/slug/${ hang.slug }` }>{ hang.tensp }</Link>
                                         </Col>
                                         <Col md={ 3 }>
                                             <Button
