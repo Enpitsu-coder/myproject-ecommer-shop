@@ -40,7 +40,7 @@ export default function GiaoHangScreen() {
                 thanhpho,
             } )
         );
-        navigate( '/thanhtoan' );
+        navigate( '/payment' );
     };
     return (
         <div>

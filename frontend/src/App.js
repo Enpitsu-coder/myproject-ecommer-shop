@@ -15,6 +15,7 @@ import GioHangScreen from './screens/GioHangScreen';
 import DangNhapScreen from './screens/DangNhapScreen';
 import GiaoHangScreen from './screens/GiaoHangScreen';
 import DangKiScreen from './screens/DangKiScreen';
+import ThanhToanScreen from './screens/ThanhToanScreen';
 
 function App() {
   const { state, dispatch: ctxDispatch } = useContext( Store );
@@ -24,6 +25,7 @@ function App() {
     ctxDispatch( { type: 'NGƯỜI_DÙNG_THOÁT' } );
     localStorage.removeItem( 'userInfo' );
     localStorage.removeItem( 'shippingAddress' );
+    localStorage.removeItem( 'paymentMethod' );
   };
   return (
     <BrowserRouter>
@@ -78,9 +80,10 @@ function App() {
               <Route path="/dangnhap" element={ <DangNhapScreen /> } />
               <Route path="/dangki" element={ <DangKiScreen /> } />
               <Route
-                path="/giaohang"
+                path="/shipping"
                 element={ <GiaoHangScreen /> }
               ></Route>
+              <Route path="/payment" element={ <ThanhToanScreen /> }></Route>
               <Route path="/" element={ <HomeScreen /> } />
             </Routes>
           </Container>

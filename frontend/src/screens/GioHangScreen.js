@@ -33,7 +33,7 @@ export default function GioHangScreen() {
     };
 
     const tinhTienHandler = () => {
-        navigate( '/dangnhap?redirect=/giaohang' );
+        navigate( '/dangnhap?redirect=/shipping' );
     };
 
     return (

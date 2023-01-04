@@ -11,6 +11,9 @@ const initialState = {
         shippingAddress: localStorage.getItem( 'shippingAddress' )
             ? JSON.parse( localStorage.getItem( 'shippingAddress' ) )
             : {},
+        paymentMethod: localStorage.getItem( 'paymentMethod' )
+            ? localStorage.getItem( 'paymentMethod' )
+            : '',
         vatpham: localStorage.getItem( 'vatpham' )
             ? JSON.parse( localStorage.getItem( 'vatpham' ) )
             : [],
@@ -46,6 +49,7 @@ function reducer( state, action ) {
                 giohang: {
                     vatpham: [],
                     shippingAddress: {},
+                    paymentMethod: '',
                 },
             };
         case 'SAVE_SHIPPING_ADDRESS':
@@ -55,6 +59,11 @@ function reducer( state, action ) {
                     ...state.giohang,
                     shippingAddress: action.payload,
                 },
+            };
+        case 'SAVE_PAYMENT_METHOD':
+            return {
+                ...state,
+                giohang: { ...state.giohang, paymentMethod: action.payload },
             };
         default:
             return state;
