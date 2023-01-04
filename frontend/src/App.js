@@ -26,7 +26,7 @@ function App() {
                   Giỏ hàng
                   { giohang.vatpham.length > 0 && (
                     <Badge pill bg="danger">
-                      { giohang.vatpham.length }
+                      { giohang.vatpham.reduce( ( a, c ) => a + c.soluong, 0 ) }
                     </Badge>
                   ) }
                 </Link>

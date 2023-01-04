@@ -50,10 +50,18 @@ function SanPhamScreen() {
     }, [ slug ] );
 
     const { state, dispatch: ctxDispatch } = useContext( Store );
-    const themHangHandler = () => {
+    const { giohang } = state;
+    const themHangHandler = async () => {
+        const tontai = giohang.vatpham.find( ( x ) => x._id === sp._id );
+        const soluong = tontai ? tontai.soluong + 1 : 1;
+        const { data } = await axios.get( `/api/sanpham/${ sp._id }` );
+        if ( data.soluong < soluong ) {
+            window.alert( 'Xin lỗi. Đã hết hàng' );
+            return;
+        }
         ctxDispatch( {
             type: 'THÊM_HÀNG',
-            payload: { ...sp, soluong: 1 },
+            payload: { ...sp, soluong },
         } );
     };
 

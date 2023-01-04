@@ -10,13 +10,16 @@ const initialState = {
 function reducer( state, action ) {
     switch ( action.type ) {
         case 'THÊM_HÀNG':
-            return {
-                ...state,
-                giohang: {
-                    ...state.giohang,
-                    vatpham: [ ...state.giohang.vatpham, action.payload ],
-                },
-            };
+            const hangthem = action.payload;
+            const tontai = state.giohang.vatpham.find(
+                ( hang ) => hang._id === hangthem._id
+            );
+            const vatpham = tontai
+                ? state.giohang.vatpham.map( ( hang ) =>
+                    hang._id === tontai._id ? hangthem : hang
+                )
+                : [ ...state.giohang.vatpham, hangthem ];
+            return { ...state, giohang: { ...state.giohang, vatpham } };
         default:
             return state;
     }

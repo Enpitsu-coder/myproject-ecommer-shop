@@ -1,6 +1,7 @@
 const data = {
     sanpham: [
         {
+            _id: '1',
             tensp: 'Áo trẻ em 1',
             slug: 'ao-tre-em-1',
             loaisp: 'ao',
@@ -13,6 +14,7 @@ const data = {
             mota: 'áo nam dành cho trẻ em chất lượng cao',
         },
         {
+            _id: '2',
             tensp: 'Quần trẻ em 1',
             slug: 'quan-tre-em-1',
             loaisp: 'quan',
@@ -25,6 +27,7 @@ const data = {
             mota: 'quần nam dành cho trẻ em chất lượng cao',
         },
         {
+            _id: '3',
             tensp: 'Mũ trẻ em 1',
             slug: 'mu-tre-em-1',
             loaisp: 'mu',
@@ -37,6 +40,7 @@ const data = {
             mota: 'mũ nam dành cho trẻ em chất lượng cao',
         },
         {
+            _id: '4',
             tensp: 'Váy trẻ em 1',
             slug: 'vay-tre-em-1',
             loaisp: 'vay',

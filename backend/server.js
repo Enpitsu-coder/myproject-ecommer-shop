@@ -16,6 +16,15 @@ app.get( '/api/sanpham/slug/:slug', ( req, res ) => {
     }
 } );
 
+app.get( '/api/sanpham/:id', ( req, res ) => {
+    const sp = data.sanpham.find( ( x ) => x._id === req.params.id );
+    if ( sp ) {
+        res.send( sp );
+    } else {
+        res.status( 404 ).send( { message: 'Không tìm thấy sản phẩm' } );
+    }
+} );
+
 const port = process.env.PORT || 5000;
 app.listen( port, () => {
     console.log( `serve at http://localhost:${ port }` );
