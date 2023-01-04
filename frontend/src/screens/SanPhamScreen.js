@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useReducer } from 'react';
+import { useContext, useEffect, useReducer } from 'react';
 import { useParams } from "react-router-dom";
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -12,6 +12,7 @@ import { Helmet } from 'react-helmet-async';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 import { getError } from '../utils';
+import { Store } from '../Store';
 
 const reducer = ( state, action ) => {
     switch ( action.type ) {
@@ -34,6 +35,7 @@ function SanPhamScreen() {
         loading: true,
         error: '',
     } );
+
     useEffect( () => {
         const fetchData = async () => {
             dispatch( { type: 'FETCH_REQUEST' } );
@@ -46,6 +48,15 @@ function SanPhamScreen() {
         };
         fetchData();
     }, [ slug ] );
+
+    const { state, dispatch: ctxDispatch } = useContext( Store );
+    const themHangHandler = () => {
+        ctxDispatch( {
+            type: 'THÊM_HÀNG',
+            payload: { ...sp, soluong: 1 },
+        } );
+    };
+
     return loading ? (
         <LoadingBox />
     ) : error ? (
@@ -106,7 +117,7 @@ function SanPhamScreen() {
                                 { sp.soluong > 0 && (
                                     <ListGroup.Item>
                                         <div className="d-grid">
-                                            <Button variant="primary">Thêm vào giỏ</Button>
+                                            <Button onClick={ themHangHandler } variant="primary">Thêm vào giỏ</Button>
                                         </div>
                                     </ListGroup.Item>
                                 ) }
