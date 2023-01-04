@@ -1,4 +1,20 @@
+import bcrypt from 'bcryptjs';
+
 const data = {
+    nguoidung: [
+        {
+            ten: 'huy',
+            email: 'admin@example.com',
+            matkhau: bcrypt.hashSync( '123456' ),
+            isAdmin: true,
+        },
+        {
+            ten: 'gest',
+            email: 'user@example.com',
+            matkhau: bcrypt.hashSync( '123456' ),
+            isAdmin: false,
+        },
+    ],
     sanpham: [
         {
             //_id: '1',
