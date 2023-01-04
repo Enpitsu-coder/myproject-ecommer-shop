@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useContext, useEffect, useReducer } from 'react';
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
@@ -28,6 +28,7 @@ const reducer = ( state, action ) => {
 };
 
 function SanPhamScreen() {
+    const navigate = useNavigate();
     const params = useParams();
     const { slug } = params;
     const [ { loading, error, sp }, dispatch ] = useReducer( reducer, {
@@ -40,7 +41,7 @@ function SanPhamScreen() {
         const fetchData = async () => {
             dispatch( { type: 'FETCH_REQUEST' } );
             try {
-                const result = await axios.get( `/api/sanpham/slug/${ slug }` );
+                const result = await axios.get( `/api/sanpham/${ slug }` );
                 dispatch( { type: 'FETCH_SUCCESS', payload: result.data } );
             } catch ( err ) {
                 dispatch( { type: 'FETCH_FAIL', payload: getError( err ) } );
@@ -53,16 +54,17 @@ function SanPhamScreen() {
     const { giohang } = state;
     const themHangHandler = async () => {
         const tontai = giohang.vatpham.find( ( x ) => x._id === sp._id );
-        const soluong = tontai ? tontai.soluong + 1 : 1;
+        const sohang = tontai ? tontai.sohang + 1 : 1;
         const { data } = await axios.get( `/api/sanpham/${ sp._id }` );
-        if ( data.soluong < soluong ) {
+        if ( data.soluong < sohang ) {
             window.alert( 'Xin lỗi. Đã hết hàng' );
             return;
         }
         ctxDispatch( {
             type: 'THÊM_HÀNG',
-            payload: { ...sp, soluong },
+            payload: { ...sp, sohang },
         } );
+        navigate( '/giohang' );
     };
 
     return loading ? (

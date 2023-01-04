@@ -8,6 +8,7 @@ import Container from 'react-bootstrap/Container';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useContext } from 'react';
 import { Store } from './Store';
+import GioHangScreen from './screens/GioHangScreen';
 
 function App() {
   const { state } = useContext( Store );
@@ -26,7 +27,7 @@ function App() {
                   Giỏ hàng
                   { giohang.vatpham.length > 0 && (
                     <Badge pill bg="danger">
-                      { giohang.vatpham.reduce( ( a, c ) => a + c.soluong, 0 ) }
+                      { giohang.vatpham.reduce( ( a, c ) => a + c.sohang, 0 ) }
                     </Badge>
                   ) }
                 </Link>
@@ -37,7 +38,8 @@ function App() {
         <main>
           <Container className='mt-3'>
             <Routes>
-              <Route path="/sanpham/slug/:slug" element={ <SanPhamScreen /> } />
+              <Route path="/sanpham/:slug" element={ <SanPhamScreen /> } />
+              <Route path="/giohang" element={ <GioHangScreen /> } />
               <Route path="/" element={ <HomeScreen /> } />
             </Routes>
           </Container>

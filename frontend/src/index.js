@@ -10,11 +10,13 @@ import { StoreProvider } from './Store';
 const root = createRoot( document.getElementById( 'root' ) );
 
 root.render(
-  <StoreProvider>
-    <HelmetProvider>
-      <App />
-    </HelmetProvider>
-  </StoreProvider>
+  <React.StrictMode>
+    <StoreProvider>
+      <HelmetProvider>
+        <App />
+      </HelmetProvider>
+    </StoreProvider>
+  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

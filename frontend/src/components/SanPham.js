@@ -7,11 +7,11 @@ function SanPham( props ) {
     const { sp } = props;
     return (
         <Card>
-            <Link to={ `/sanpham/slug/${ sp.slug }` }>
+            <Link to={ `/sanpham/${ sp.slug }` }>
                 <img src={ sp.anh } className="card-img-top" alt={ sp.tensp } />
             </Link>
             <Card.Body>
-                <Link to={ `/sanpham/slug/${ sp.slug }` }>
+                <Link to={ `/sanpham/${ sp.slug }` }>
                     <Card.Title>{ sp.tensp }</Card.Title>
                 </Link>
                 <DanhGia rating={ sp.danhgia } numReviews={ sp.sldanhgia } />
