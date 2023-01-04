@@ -14,6 +14,7 @@ import { Store } from './Store';
 import GioHangScreen from './screens/GioHangScreen';
 import DangNhapScreen from './screens/DangNhapScreen';
 import GiaoHangScreen from './screens/GiaoHangScreen';
+import DangKiScreen from './screens/DangKiScreen';
 
 function App() {
   const { state, dispatch: ctxDispatch } = useContext( Store );
@@ -45,10 +46,10 @@ function App() {
                 </Link>
                 { userInfo ? (
                   <NavDropdown title={ userInfo.ten } id="basic-nav-dropdown">
-                    <LinkContainer to="/hoso">
+                    <LinkContainer to="/profile">
                       <NavDropdown.Item>Hồ sơ</NavDropdown.Item>
                     </LinkContainer>
-                    <LinkContainer to="/shipping">
+                    <LinkContainer to="/orderhistory">
                       <NavDropdown.Item>Lịch sử đơn hàng</NavDropdown.Item>
                     </LinkContainer>
                     <NavDropdown.Divider />
@@ -75,6 +76,7 @@ function App() {
               <Route path="/sanpham/slug/:slug" element={ <SanPhamScreen /> } />
               <Route path="/giohang" element={ <GioHangScreen /> } />
               <Route path="/dangnhap" element={ <DangNhapScreen /> } />
+              <Route path="/dangki" element={ <DangKiScreen /> } />
               <Route
                 path="/giaohang"
                 element={ <GiaoHangScreen /> }
