@@ -13,6 +13,7 @@ import { useContext } from 'react';
 import { Store } from './Store';
 import GioHangScreen from './screens/GioHangScreen';
 import DangNhapScreen from './screens/DangNhapScreen';
+import GiaoHangScreen from './screens/GiaoHangScreen';
 
 function App() {
   const { state, dispatch: ctxDispatch } = useContext( Store );
@@ -21,6 +22,7 @@ function App() {
   const ThoatHandler = () => {
     ctxDispatch( { type: 'NGƯỜI_DÙNG_THOÁT' } );
     localStorage.removeItem( 'userInfo' );
+    localStorage.removeItem( 'shippingAddress' );
   };
   return (
     <BrowserRouter>
@@ -46,7 +48,7 @@ function App() {
                     <LinkContainer to="/hoso">
                       <NavDropdown.Item>Hồ sơ</NavDropdown.Item>
                     </LinkContainer>
-                    <LinkContainer to="/lichsudonhang">
+                    <LinkContainer to="/shipping">
                       <NavDropdown.Item>Lịch sử đơn hàng</NavDropdown.Item>
                     </LinkContainer>
                     <NavDropdown.Divider />
@@ -73,6 +75,10 @@ function App() {
               <Route path="/sanpham/slug/:slug" element={ <SanPhamScreen /> } />
               <Route path="/giohang" element={ <GioHangScreen /> } />
               <Route path="/dangnhap" element={ <DangNhapScreen /> } />
+              <Route
+                path="/giaohang"
+                element={ <GiaoHangScreen /> }
+              ></Route>
               <Route path="/" element={ <HomeScreen /> } />
             </Routes>
           </Container>

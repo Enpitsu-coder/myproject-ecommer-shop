@@ -8,6 +8,9 @@ const initialState = {
         : null,
 
     giohang: {
+        shippingAddress: localStorage.getItem( 'shippingAddress' )
+            ? JSON.parse( localStorage.getItem( 'shippingAddress' ) )
+            : {},
         vatpham: localStorage.getItem( 'vatpham' )
             ? JSON.parse( localStorage.getItem( 'vatpham' ) )
             : [],
@@ -40,6 +43,18 @@ function reducer( state, action ) {
             return {
                 ...state,
                 userInfo: null,
+                giohang: {
+                    vatpham: [],
+                    shippingAddress: {},
+                },
+            };
+        case 'SAVE_SHIPPING_ADDRESS':
+            return {
+                ...state,
+                giohang: {
+                    ...state.giohang,
+                    shippingAddress: action.payload,
+                },
             };
         default:
             return state;
