@@ -9,6 +9,7 @@ import { LinkContainer } from 'react-router-bootstrap';
 import { useContext } from 'react';
 import { Store } from './Store';
 import GioHangScreen from './screens/GioHangScreen';
+import DangNhapScreen from './screens/DangNhapScreen';
 
 function App() {
   const { state } = useContext( Store );
@@ -40,6 +41,7 @@ function App() {
             <Routes>
               <Route path="/sanpham/slug/:slug" element={ <SanPhamScreen /> } />
               <Route path="/giohang" element={ <GioHangScreen /> } />
+              <Route path="/dangnhap" element={ <DangNhapScreen /> } />
               <Route path="/" element={ <HomeScreen /> } />
             </Routes>
           </Container>
