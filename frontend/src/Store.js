@@ -4,7 +4,9 @@ export const Store = createContext();
 
 const initialState = {
     giohang: {
-        vatpham: [],
+        vatpham: localStorage.getItem( 'vatpham' )
+            ? JSON.parse( localStorage.getItem( 'vatpham' ) )
+            : [],
     },
 };
 function reducer( state, action ) {
@@ -19,7 +21,15 @@ function reducer( state, action ) {
                     hang._id === tontai._id ? hangthem : hang
                 )
                 : [ ...state.giohang.vatpham, hangthem ];
+            localStorage.setItem( 'vatpham', JSON.stringify( vatpham ) );
             return { ...state, giohang: { ...state.giohang, vatpham } };
+        case 'BỎ_HÀNG': {
+            const vatpham = state.giohang.vatpham.filter(
+                ( hang ) => hang._id !== action.payload._id
+            );
+            localStorage.setItem( 'vatpham', JSON.stringify( vatpham ) );
+            return { ...state, giohang: { ...state.giohang, vatpham } };
+        }
         default:
             return state;
     }

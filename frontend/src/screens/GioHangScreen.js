@@ -7,13 +7,34 @@ import MessageBox from '../components/MessageBox';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 export default function GioHangScreen() {
+    const navigate = useNavigate();
     const { state, dispatch: ctxDispatch } = useContext( Store );
     const {
         giohang: { vatpham },
     } = state;
+
+    const updateGioHandler = async ( hang, sohang ) => {
+        const { data } = await axios.get( `/api/sanpham/${ hang._id }` );
+        if ( data.soluong < sohang ) {
+            window.alert( 'Xin lỗi. Đã hết hàng' );
+            return;
+        }
+        ctxDispatch( {
+            type: 'THÊM_HÀNG',
+            payload: { ...hang, sohang },
+        } );
+    };
+    const boHangHandler = ( hang ) => {
+        ctxDispatch( { type: 'BỎ_HÀNG', payload: hang } );
+    };
+
+    const tinhTienHandler = () => {
+        navigate( '/signin?redirect=/shipping' );
+    };
 
     return (
         <div>
@@ -41,12 +62,21 @@ export default function GioHangScreen() {
                                             <Link to={ `/sanpham/${ hang.slug }` }>{ hang.tensp }</Link>
                                         </Col>
                                         <Col md={ 3 }>
-                                            <Button variant="light" disabled={ hang.sohang === 1 }>
+                                            <Button
+                                                onClick={ () =>
+                                                    updateGioHandler( hang, hang.sohang - 1 )
+                                                }
+                                                variant="light"
+                                                disabled={ hang.sohang === 1 }
+                                            >
                                                 <i className="fas fa-minus-circle"></i>
                                             </Button>{ ' ' }
                                             <span>{ hang.sohang }</span>{ ' ' }
                                             <Button
                                                 variant="light"
+                                                onClick={ () =>
+                                                    updateGioHandler( hang, hang.sohang + 1 )
+                                                }
                                                 disabled={ hang.sohang === hang.soluong }
                                             >
                                                 <i className="fas fa-plus-circle"></i>
@@ -54,7 +84,10 @@ export default function GioHangScreen() {
                                         </Col>
                                         <Col md={ 3 }>{ hang.gia } VNĐ</Col>
                                         <Col md={ 2 }>
-                                            <Button variant="light">
+                                            <Button
+                                                onClick={ () => boHangHandler( hang ) }
+                                                variant="light"
+                                            >
                                                 <i className="fas fa-trash"></i>
                                             </Button>
                                         </Col>
@@ -80,6 +113,7 @@ export default function GioHangScreen() {
                                         <Button
                                             type="button"
                                             variant="primary"
+                                            onClick={ tinhTienHandler }
                                             disabled={ vatpham.length === 0 }
                                         >
                                             Tính tiền

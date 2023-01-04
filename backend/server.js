@@ -7,7 +7,7 @@ app.get( '/api/sanpham', ( req, res ) => {
     res.send( data.sanpham );
 } );
 
-app.get( '/api/sanpham/:slug', ( req, res ) => {
+app.get( '/api/sanpham/slug/:slug', ( req, res ) => {
     const sp = data.sanpham.find( ( x ) => x.slug === req.params.slug );
     if ( sp ) {
         res.send( sp );
