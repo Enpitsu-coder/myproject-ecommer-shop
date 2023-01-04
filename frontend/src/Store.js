@@ -3,6 +3,10 @@ import { createContext, useReducer } from 'react';
 export const Store = createContext();
 
 const initialState = {
+    userInfo: localStorage.getItem( 'userInfo' )
+        ? JSON.parse( localStorage.getItem( 'userInfo' ) )
+        : null,
+
     giohang: {
         vatpham: localStorage.getItem( 'vatpham' )
             ? JSON.parse( localStorage.getItem( 'vatpham' ) )
@@ -30,6 +34,13 @@ function reducer( state, action ) {
             localStorage.setItem( 'vatpham', JSON.stringify( vatpham ) );
             return { ...state, giohang: { ...state.giohang, vatpham } };
         }
+        case 'NGƯỜI_DÙNG_ĐĂNG_NHẬP':
+            return { ...state, userInfo: action.payload };
+        case 'NGƯỜI_DÙNG_THOÁT':
+            return {
+                ...state,
+                userInfo: null,
+            };
         default:
             return state;
     }
