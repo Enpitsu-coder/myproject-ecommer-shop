@@ -19,6 +19,7 @@ import ThanhToanScreen from './screens/ThanhToanScreen';
 import DonHangScreen from './screens/DonHangScreen';
 import DatHangScreen from './screens/DatHangScreen';
 import OrderHistoryScreen from './screens/OrderHistoryScreen';
+import ProfileScreen from './screens/ProfileScreen';
 
 function App() {
   const { state, dispatch: ctxDispatch } = useContext( Store );
@@ -29,6 +30,7 @@ function App() {
     localStorage.removeItem( 'userInfo' );
     localStorage.removeItem( 'shippingAddress' );
     localStorage.removeItem( 'paymentMethod' );
+    window.location.href = '/dangnhap';
   };
   return (
     <BrowserRouter>
@@ -85,6 +87,7 @@ function App() {
               <Route path="/giohang" element={ <GioHangScreen /> } />
               <Route path="/dangnhap" element={ <DangNhapScreen /> } />
               <Route path="/dangki" element={ <DangKiScreen /> } />
+              <Route path="/profile" element={ <ProfileScreen /> } />
               <Route path="/placeorder" element={ <DonHangScreen /> } />
               <Route path="/order/:id" element={ <DatHangScreen /> }></Route>
               <Route
