@@ -109,7 +109,13 @@ donhangRouter.put(
             };
 
             const updatedOrder = await order.save();
+            order.orderItems?.map( async ( item ) => {
+                const product = await SanPham.findById( item._id );
+                product.soluong -= item.sohang;
+                await product.save();
+            } );
             res.send( { message: 'Đã thanh toán', order: updatedOrder } );
+
         } else {
             res.status( 404 ).send( { message: 'Không tìm thấy hóa đơn' } );
         }
