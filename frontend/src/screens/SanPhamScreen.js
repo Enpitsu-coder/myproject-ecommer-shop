@@ -28,6 +28,7 @@ const reducer = ( state, action ) => {
 };
 
 function SanPhamScreen() {
+    const [ selectedImage, setSelectedImage ] = ( '' );
     const navigate = useNavigate();
     const params = useParams();
     const { slug } = params;
@@ -77,7 +78,7 @@ function SanPhamScreen() {
                 <Col md={ 6 }>
                     <img
                         className="img-large"
-                        src={ sp.anh }
+                        src={ selectedImage || sp.anh }
                         alt={ sp.tensp }
                     ></img>
                 </Col>
@@ -96,6 +97,24 @@ function SanPhamScreen() {
                             ></DanhGia>
                         </ListGroup.Item>
                         <ListGroup.Item>Giá: { sp.gia } VNĐ</ListGroup.Item>
+                        <ListGroup.Item>
+                            <Row xs={ 1 } md={ 2 } className="g-2">
+                                { [ sp.anh, ...sp.images ].map( ( x ) => (
+                                    <Col key={ x }>
+                                        <Card>
+                                            <Button
+                                                className="thumbnail"
+                                                type="button"
+                                                variant="light"
+                                                onClick={ () => setSelectedImage( x ) }
+                                            >
+                                                <Card.Img variant="top" src={ x } alt="product" />
+                                            </Button>
+                                        </Card>
+                                    </Col>
+                                ) ) }
+                            </Row>
+                        </ListGroup.Item>
                         <ListGroup.Item>
                             Chi tiết sản phẩm:
                             <p>{ sp.mota }</p>

@@ -6,6 +6,7 @@ const sanphamSchema = new mongoose.Schema(
         slug: { type: String, required: true, unique: true },
         loaisp: { type: String, required: true },
         anh: { type: String, required: true },
+        images: [ String ],
         gia: { type: Number, required: true },
         soluong: { type: Number, required: true },
         ncc: { type: String, required: true },

@@ -44,6 +44,7 @@ sanphamRouter.put(
             product.slug = req.body.slug;
             product.gia = req.body.gia;
             product.anh = req.body.anh;
+            product.images = req.body.images;
             product.loaisp = req.body.loaisp;
             product.ncc = req.body.ncc;
             product.soluong = req.body.soluong;
