@@ -6,6 +6,7 @@ import seedRouter from './routes/seedRoutes.js';
 import sanphamRouter from './routes/sanphamRoutes.js';
 import nguoidungRouter from "./routes/nguoidungRoutes.js";
 import donhangRouter from './routes/donhangRoutes.js';
+import uploadRouter from './routes/uploadRoutes.js';
 
 dotenv.config();
 
@@ -27,6 +28,7 @@ app.get( '/api/keys/paypal', ( req, res ) => {
     res.send( process.env.PAYPAL_CLIENT_ID || 'sb' );
 } );
 
+app.use( '/api/upload', uploadRouter );
 app.use( '/api/seed', seedRouter );
 app.use( '/api/sanpham', sanphamRouter );
 app.use( '/api/nguoidung', nguoidungRouter );
