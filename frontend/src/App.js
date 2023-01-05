@@ -17,6 +17,7 @@ import GiaoHangScreen from './screens/GiaoHangScreen';
 import DangKiScreen from './screens/DangKiScreen';
 import ThanhToanScreen from './screens/ThanhToanScreen';
 import DonHangScreen from './screens/DonHangScreen';
+import DatHangScreen from './screens/DatHangScreen';
 
 function App() {
   const { state, dispatch: ctxDispatch } = useContext( Store );
@@ -81,6 +82,7 @@ function App() {
               <Route path="/dangnhap" element={ <DangNhapScreen /> } />
               <Route path="/dangki" element={ <DangKiScreen /> } />
               <Route path="/placeorder" element={ <DonHangScreen /> } />
+              <Route path="/order/:id" element={ <DatHangScreen /> }></Route>
               <Route
                 path="/shipping"
                 element={ <GiaoHangScreen /> }

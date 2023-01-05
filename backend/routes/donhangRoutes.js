@@ -23,4 +23,19 @@ donhangRouter.post(
         res.status( 201 ).send( { message: 'Đã tạo đơn hàng mới', order } );
     } )
 );
+
+donhangRouter.get(
+    '/:id',
+    isAuth,
+    expressAsyncHandler( async ( req, res ) => {
+        const order = await DonHang.findById( req.params.id );
+        if ( order ) {
+            res.send( order );
+        } else {
+            res.status( 404 ).send( { message: 'Không tìm thấy đơn hàng' } );
+        }
+    } )
+);
+
+
 export default donhangRouter;

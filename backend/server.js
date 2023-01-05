@@ -26,7 +26,7 @@ app.use( express.urlencoded( { extended: true } ) );
 app.use( '/api/seed', seedRouter );
 app.use( '/api/sanpham', sanphamRouter );
 app.use( '/api/nguoidung', nguoidungRouter );
-app.use( '/api/donhang', donhangRouter );
+app.use( '/api/orders', donhangRouter );
 
 app.use( ( err, req, res, next ) => {
     res.status( 500 ).send( { message: err.message } );

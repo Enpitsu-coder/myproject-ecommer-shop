@@ -49,7 +49,7 @@ export default function DonHangScreen() {
             dispatch( { type: 'CREATE_REQUEST' } );
 
             const { data } = await Axios.post(
-                '/api/donhang',
+                '/api/orders',
                 {
                     orderItems: giohang.vatpham,
                     shippingAddress: giohang.shippingAddress,
@@ -68,7 +68,7 @@ export default function DonHangScreen() {
             ctxDispatch( { type: 'CART_CLEAR' } );
             dispatch( { type: 'CREATE_SUCCESS' } );
             localStorage.removeItem( 'vatpham' );
-            //navigate( `/donhang/${ data.donhang._id }` );
+            navigate( `/order/${ data.order._id }` );
         } catch ( err ) {
             dispatch( { type: 'CREATE_FAIL' } );
             toast.error( getError( err ) );
