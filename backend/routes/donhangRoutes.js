@@ -105,6 +105,22 @@ donhangRouter.get(
 );
 
 donhangRouter.put(
+    '/:id/deliver',
+    isAuth,
+    expressAsyncHandler( async ( req, res ) => {
+        const order = await DonHang.findById( req.params.id );
+        if ( order ) {
+            order.isDelivered = true;
+            order.deliveredAt = Date.now();
+            await order.save();
+            res.send( { message: 'Đã giao hàng' } );
+        } else {
+            res.status( 404 ).send( { message: 'Không tìm thấy đơn hàng' } );
+        }
+    } )
+);
+
+donhangRouter.put(
     '/:id/pay',
     isAuth,
     expressAsyncHandler( async ( req, res ) => {
