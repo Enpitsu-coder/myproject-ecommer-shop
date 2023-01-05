@@ -1,6 +1,7 @@
 import express from 'express';
 import expressAsyncHandler from 'express-async-handler';
 import SanPham from '../models/sanphamModel.js';
+import { isAuth, isAdmin } from '../utils.js';
 
 const sanphamRouter = express.Router();
 
@@ -10,6 +11,29 @@ sanphamRouter.get( '/', async ( req, res ) => {
 } );
 
 const PAGE_SIZE = 3;
+
+sanphamRouter.get(
+    '/admin',
+    isAuth,
+    isAdmin,
+    expressAsyncHandler( async ( req, res ) => {
+        const { query } = req;
+        const page = query.page || 1;
+        const pageSize = query.pageSize || PAGE_SIZE;
+
+        const products = await SanPham.find()
+            .skip( pageSize * ( page - 1 ) )
+            .limit( pageSize );
+        const countProducts = await SanPham.countDocuments();
+        res.send( {
+            products,
+            countProducts,
+            page,
+            pages: Math.ceil( countProducts / pageSize ),
+        } );
+    } )
+);
+
 sanphamRouter.get(
     '/search',
     expressAsyncHandler( async ( req, res ) => {
