@@ -24,6 +24,7 @@ import Button from 'react-bootstrap/Button';
 import { getError } from './utils';
 import axios from 'axios';
 import SearchBox from './components/SearchBox';
+import SearchScreen from './screens/SearchScreen';
 
 function App() {
   const { state, dispatch: ctxDispatch } = useContext( Store );
@@ -140,6 +141,7 @@ function App() {
               <Route path="/sanpham/slug/:slug" element={ <SanPhamScreen /> } />
               <Route path="/giohang" element={ <GioHangScreen /> } />
               <Route path="/dangnhap" element={ <DangNhapScreen /> } />
+              <Route path="/search" element={ <SearchScreen /> } />
               <Route path="/dangki" element={ <DangKiScreen /> } />
               <Route path="/profile" element={ <ProfileScreen /> } />
               <Route path="/placeorder" element={ <DonHangScreen /> } />

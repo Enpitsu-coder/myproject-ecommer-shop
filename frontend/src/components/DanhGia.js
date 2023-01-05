@@ -1,5 +1,5 @@
 function DanhGia( props ) {
-    const { rating, numReviews } = props;
+    const { rating, numReviews, caption } = props;
     return (
         <div className="rating">
             <span>
@@ -57,7 +57,11 @@ function DanhGia( props ) {
                     }
                 />
             </span>
-            { numReviews } Đánh giá
+            { caption ? (
+                <span>{ caption }</span>
+            ) : (
+                <span>{ ' ' + numReviews + ' Đánh giá' }</span>
+            ) }
         </div>
     );
 }
