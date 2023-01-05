@@ -48,6 +48,25 @@ nguoidungRouter.put(
     } )
 );
 
+nguoidungRouter.delete(
+    '/:id',
+    isAuth,
+    isAdmin,
+    expressAsyncHandler( async ( req, res ) => {
+        const user = await NguoiDung.findById( req.params.id );
+        if ( user ) {
+            if ( user.email === 'admin@example.com' ) {
+                res.status( 400 ).send( { message: 'Không thể delete admin' } );
+                return;
+            }
+            await user.remove();
+            res.send( { message: 'Xóa thành công' } );
+        } else {
+            res.status( 404 ).send( { message: 'Không tìm thấy người dùng' } );
+        }
+    } )
+);
+
 nguoidungRouter.post(
     '/dangnhap',
     expressAsyncHandler( async ( req, res ) => {
