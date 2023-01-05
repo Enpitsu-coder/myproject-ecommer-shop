@@ -118,6 +118,7 @@ export default function ProductListScreen() {
                                 <th>Giá</th>
                                 <th>Loại</th>
                                 <th>Hãng</th>
+                                <th>ACTIONS</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -128,6 +129,15 @@ export default function ProductListScreen() {
                                     <td>{ product.gia }</td>
                                     <td>{ product.loaisp }</td>
                                     <td>{ product.ncc }</td>
+                                    <td>
+                                        <Button
+                                            type="button"
+                                            variant="light"
+                                            onClick={ () => navigate( `/admin/product/${ product._id }` ) }
+                                        >
+                                            Sửa
+                                        </Button>
+                                    </td>
                                 </tr>
                             ) ) }
                         </tbody>

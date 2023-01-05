@@ -32,6 +32,30 @@ sanphamRouter.post(
     } )
 );
 
+sanphamRouter.put(
+    '/:id',
+    isAuth,
+    isAdmin,
+    expressAsyncHandler( async ( req, res ) => {
+        const productId = req.params.id;
+        const product = await SanPham.findById( productId );
+        if ( product ) {
+            product.tensp = req.body.tensp;
+            product.slug = req.body.slug;
+            product.gia = req.body.gia;
+            product.anh = req.body.anh;
+            product.loaisp = req.body.loaisp;
+            product.ncc = req.body.ncc;
+            product.soluong = req.body.soluong;
+            product.mota = req.body.mota;
+            await product.save();
+            res.send( { message: 'Sản phẩm cập nhật' } );
+        } else {
+            res.status( 404 ).send( { message: 'Không tìm thấy sản phẩm' } );
+        }
+    } )
+);
+
 const PAGE_SIZE = 3;
 
 sanphamRouter.get(
