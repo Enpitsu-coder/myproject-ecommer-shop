@@ -149,4 +149,19 @@ donhangRouter.put(
     } )
 );
 
+donhangRouter.delete(
+    '/:id',
+    isAuth,
+    isAdmin,
+    expressAsyncHandler( async ( req, res ) => {
+        const order = await DonHang.findById( req.params.id );
+        if ( order ) {
+            await order.remove();
+            res.send( { message: 'Đã xóa đơn' } );
+        } else {
+            res.status( 404 ).send( { message: 'Không tìm thấy hóa đơn' } );
+        }
+    } )
+);
+
 export default donhangRouter;
