@@ -1,7 +1,9 @@
 import express from 'express';
 import expressAsyncHandler from 'express-async-handler';
 import DonHang from '../models/donhangModel.js';
-import { isAuth } from '../utils.js';
+import NguoiDung from '../models/nguoidungModel.js';
+import SanPham from '../models/sanphamModel.js';
+import { isAuth, isAdmin } from '../utils.js';
 
 const donhangRouter = express.Router();
 donhangRouter.post(
@@ -21,6 +23,50 @@ donhangRouter.post(
 
         const order = await newOrder.save();
         res.status( 201 ).send( { message: 'Đã tạo đơn hàng mới', order } );
+    } )
+);
+
+donhangRouter.get(
+    '/summary',
+    isAuth,
+    isAdmin,
+    expressAsyncHandler( async ( req, res ) => {
+        const orders = await DonHang.aggregate( [
+            {
+                $group: {
+                    _id: null,
+                    numOrders: { $sum: 1 },
+                    totalSales: { $sum: '$tongcong' },
+                },
+            },
+        ] );
+        const users = await NguoiDung.aggregate( [
+            {
+                $group: {
+                    _id: null,
+                    numUsers: { $sum: 1 },
+                },
+            },
+        ] );
+        const dailyOrders = await DonHang.aggregate( [
+            {
+                $group: {
+                    _id: { $dateToString: { format: '%Y-%m-%d', date: '$createdAt' } },
+                    orders: { $sum: 1 },
+                    sales: { $sum: '$tongcong' },
+                },
+            },
+            { $sort: { _id: 1 } },
+        ] );
+        const productCategories = await SanPham.aggregate( [
+            {
+                $group: {
+                    _id: '$loaisp',
+                    count: { $sum: 1 },
+                },
+            },
+        ] );
+        res.send( { users, orders, dailyOrders, productCategories } );
     } )
 );
 

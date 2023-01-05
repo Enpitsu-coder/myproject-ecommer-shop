@@ -25,6 +25,9 @@ import { getError } from './utils';
 import axios from 'axios';
 import SearchBox from './components/SearchBox';
 import SearchScreen from './screens/SearchScreen';
+import ProtectedRoute from './components/ProtectedRoute';
+import DashboardScreen from './screens/DashboardScreen';
+import AdminRoute from './components/AdminRoute';
 
 function App() {
   const { state, dispatch: ctxDispatch } = useContext( Store );
@@ -107,6 +110,22 @@ function App() {
                       Đăng nhập
                     </Link>
                   ) }
+                  { userInfo && userInfo.isAdmin && (
+                    <NavDropdown title="Admin" id="admin-nav-dropdown">
+                      <LinkContainer to="/admin/dashboard">
+                        <NavDropdown.Item>Trang chính</NavDropdown.Item>
+                      </LinkContainer>
+                      <LinkContainer to="/admin/productlist">
+                        <NavDropdown.Item>Sản phẩm</NavDropdown.Item>
+                      </LinkContainer>
+                      <LinkContainer to="/admin/orderlist">
+                        <NavDropdown.Item>Orders</NavDropdown.Item>
+                      </LinkContainer>
+                      <LinkContainer to="/admin/userlist">
+                        <NavDropdown.Item>Người dùng</NavDropdown.Item>
+                      </LinkContainer>
+                    </NavDropdown>
+                  ) }
                 </Nav>
               </Navbar.Collapse>
             </Container>
@@ -143,18 +162,45 @@ function App() {
               <Route path="/dangnhap" element={ <DangNhapScreen /> } />
               <Route path="/search" element={ <SearchScreen /> } />
               <Route path="/dangki" element={ <DangKiScreen /> } />
-              <Route path="/profile" element={ <ProfileScreen /> } />
+              <Route
+                path="/profile"
+                element={
+                  <ProtectedRoute>
+                    <ProfileScreen />
+                  </ProtectedRoute>
+                }
+              />
               <Route path="/placeorder" element={ <DonHangScreen /> } />
-              <Route path="/order/:id" element={ <DatHangScreen /> }></Route>
+              <Route
+                path="/order/:id"
+                element={
+                  <ProtectedRoute>
+                    <DatHangScreen />
+                  </ProtectedRoute>
+                }
+              ></Route>
               <Route
                 path="/orderhistory"
-                element={ <OrderHistoryScreen /> }
+                element={
+                  <ProtectedRoute>
+                    <OrderHistoryScreen />
+                  </ProtectedRoute>
+                }
               ></Route>
               <Route
                 path="/shipping"
                 element={ <GiaoHangScreen /> }
               ></Route>
               <Route path="/payment" element={ <ThanhToanScreen /> }></Route>
+              {/* Admin Routes */ }
+              <Route
+                path="/admin/dashboard"
+                element={
+                  <AdminRoute>
+                    <DashboardScreen />
+                  </AdminRoute>
+                }
+              ></Route>
               <Route path="/" element={ <HomeScreen /> } />
             </Routes>
           </Container>
