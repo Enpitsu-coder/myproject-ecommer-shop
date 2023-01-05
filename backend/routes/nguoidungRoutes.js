@@ -15,6 +15,39 @@ nguoidungRouter.get(
         res.send( users );
     } )
 );
+
+nguoidungRouter.get(
+    '/:id',
+    isAuth,
+    isAdmin,
+    expressAsyncHandler( async ( req, res ) => {
+        const user = await NguoiDung.findById( req.params.id );
+        if ( user ) {
+            res.send( user );
+        } else {
+            res.status( 404 ).send( { message: 'Không tìm thấy người dùng' } );
+        }
+    } )
+);
+
+nguoidungRouter.put(
+    '/:id',
+    isAuth,
+    isAdmin,
+    expressAsyncHandler( async ( req, res ) => {
+        const user = await NguoiDung.findById( req.params.id );
+        if ( user ) {
+            user.ten = req.body.ten || user.ten;
+            user.email = req.body.email || user.email;
+            user.isAdmin = Boolean( req.body.isAdmin );
+            const updatedUser = await user.save();
+            res.send( { message: 'Cập nhật thành công', user: updatedUser } );
+        } else {
+            res.status( 404 ).send( { message: 'Không tìm thấy người dùng' } );
+        }
+    } )
+);
+
 nguoidungRouter.post(
     '/dangnhap',
     expressAsyncHandler( async ( req, res ) => {
