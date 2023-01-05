@@ -56,6 +56,22 @@ sanphamRouter.put(
     } )
 );
 
+sanphamRouter.delete(
+    '/:id',
+    isAuth,
+    isAdmin,
+    expressAsyncHandler( async ( req, res ) => {
+        const product = await SanPham.findById( req.params.id );
+        if ( product ) {
+            await product.remove();
+            res.send( { message: 'Đã xóa sản phẩm' } );
+        } else {
+            res.status( 404 ).send( { message: 'Không tìm thấy sản phẩm' } );
+        }
+    } )
+);
+
+
 const PAGE_SIZE = 3;
 
 sanphamRouter.get(
