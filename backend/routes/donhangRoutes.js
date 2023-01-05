@@ -6,6 +6,17 @@ import SanPham from '../models/sanphamModel.js';
 import { isAuth, isAdmin } from '../utils.js';
 
 const donhangRouter = express.Router();
+
+donhangRouter.get(
+    '/',
+    isAuth,
+    isAdmin,
+    expressAsyncHandler( async ( req, res ) => {
+        const orders = await DonHang.find().populate( 'nguoidung', 'ten' );
+        res.send( orders );
+    } )
+);
+
 donhangRouter.post(
     '/',
     isAuth,
@@ -74,7 +85,7 @@ donhangRouter.get(
     '/mine',
     isAuth,
     expressAsyncHandler( async ( req, res ) => {
-        const orders = await DonHang.find( { user: req.user._id } );
+        const orders = await DonHang.find( { nguoidung: req.user._id } );
         res.send( orders );
     } )
 );

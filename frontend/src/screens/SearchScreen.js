@@ -181,7 +181,7 @@ export default function SearchScreen() {
                         </ul>
                     </div>
                     <div>
-                        <h3>Đánh giá khách hàng</h3>
+                        {/* <h3>Đánh giá khách hàng</h3>
                         <ul>
                             { ratings.map( ( r ) => (
                                 <li key={ r.name }>
@@ -201,7 +201,7 @@ export default function SearchScreen() {
                                     <DanhGia caption={ ' trở lên' } danhgia={ 0 }></DanhGia>
                                 </Link>
                             </li>
-                        </ul>
+                        </ul> */}
                     </div>
                 </Col>
                 <Col md={ 9 }>
