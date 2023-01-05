@@ -1,4 +1,5 @@
 import express from 'express';
+import expressAsyncHandler from 'express-async-handler';
 import SanPham from '../models/sanphamModel.js';
 
 const sanphamRouter = express.Router();
@@ -7,6 +8,15 @@ sanphamRouter.get( '/', async ( req, res ) => {
     const sanpham = await SanPham.find();
     res.send( sanpham );
 } );
+
+sanphamRouter.get(
+    '/categories',
+    expressAsyncHandler( async ( req, res ) => {
+        const categories = await SanPham.find().distinct( 'loaisp' );
+        res.send( categories );
+    } )
+);
+
 
 sanphamRouter.get( '/slug/:slug', async ( req, res ) => {
     const sp = await SanPham.findOne( { slug: { $eq: req.params.slug } } );
