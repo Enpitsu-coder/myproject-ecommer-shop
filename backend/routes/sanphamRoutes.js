@@ -10,6 +10,28 @@ sanphamRouter.get( '/', async ( req, res ) => {
     res.send( sanpham );
 } );
 
+sanphamRouter.post(
+    '/',
+    isAuth,
+    isAdmin,
+    expressAsyncHandler( async ( req, res ) => {
+        const newProduct = new SanPham( {
+            tensp: 'sample name ' + Date.now(),
+            slug: 'sample-name-' + Date.now(),
+            anh: '/images/a1.jpg',
+            gia: 0,
+            loaisp: 'sample category',
+            ncc: 'sample brand',
+            soluong: 0,
+            danhgia: 0,
+            sldanhgia: 0,
+            mota: 'sample description',
+        } );
+        const product = await newProduct.save();
+        res.send( { message: 'Tạo mới sản phẩm', product } );
+    } )
+);
+
 const PAGE_SIZE = 3;
 
 sanphamRouter.get(
