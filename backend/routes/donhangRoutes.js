@@ -25,6 +25,16 @@ donhangRouter.post(
 );
 
 donhangRouter.get(
+    '/mine',
+    isAuth,
+    expressAsyncHandler( async ( req, res ) => {
+        const orders = await DonHang.find( { user: req.user._id } );
+        res.send( orders );
+    } )
+);
+
+
+donhangRouter.get(
     '/:id',
     isAuth,
     expressAsyncHandler( async ( req, res ) => {
