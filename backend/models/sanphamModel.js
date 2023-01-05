@@ -18,5 +18,5 @@ const sanphamSchema = new mongoose.Schema(
     }
 );
 
-const SanPham = mongoose.model( 'sanpham', sanphamSchema );
+const SanPham = mongoose.model( 'SanPham', sanphamSchema );
 export default SanPham;

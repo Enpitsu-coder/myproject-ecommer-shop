@@ -40,6 +40,8 @@ function reducer( state, action ) {
             localStorage.setItem( 'vatpham', JSON.stringify( vatpham ) );
             return { ...state, giohang: { ...state.giohang, vatpham } };
         }
+        case 'CART_CLEAR':
+            return { ...state, giohang: { ...state.giohang, vatpham: [] } };
         case 'NGƯỜI_DÙNG_ĐĂNG_NHẬP':
             return { ...state, userInfo: action.payload };
         case 'NGƯỜI_DÙNG_THOÁT':

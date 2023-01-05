@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 import seedRouter from './routes/seedRoutes.js';
 import sanphamRouter from './routes/sanphamRoutes.js';
 import nguoidungRouter from "./routes/nguoidungRoutes.js";
+import donhangRouter from './routes/donhangRoutes.js';
 
 dotenv.config();
 
@@ -25,6 +26,7 @@ app.use( express.urlencoded( { extended: true } ) );
 app.use( '/api/seed', seedRouter );
 app.use( '/api/sanpham', sanphamRouter );
 app.use( '/api/nguoidung', nguoidungRouter );
+app.use( '/api/donhang', donhangRouter );
 
 app.use( ( err, req, res, next ) => {
     res.status( 500 ).send( { message: err.message } );

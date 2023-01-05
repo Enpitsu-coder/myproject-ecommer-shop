@@ -12,5 +12,5 @@ const nguoidungSchema = new mongoose.Schema(
     }
 );
 
-const NguoiDung = mongoose.model( 'nguoidung', nguoidungSchema );
+const NguoiDung = mongoose.model( 'NguoiDung', nguoidungSchema );
 export default NguoiDung;

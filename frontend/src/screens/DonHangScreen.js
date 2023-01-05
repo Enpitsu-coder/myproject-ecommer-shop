@@ -1,4 +1,5 @@
-import React, { useContext, useEffect } from 'react';
+import Axios from 'axios';
+import React, { useContext, useEffect, useReducer } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link, useNavigate } from 'react-router-dom';
 import Row from 'react-bootstrap/Row';
@@ -6,11 +7,32 @@ import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import ListGroup from 'react-bootstrap/ListGroup';
+import { toast } from 'react-toastify';
+import { getError } from '../utils';
 import { Store } from '../Store';
 import BuocTinhTien from '../components/BuocTinhTien';
+import LoadingBox from '../components/LoadingBox';
+
+const reducer = ( state, action ) => {
+    switch ( action.type ) {
+        case 'CREATE_REQUEST':
+            return { ...state, loading: true };
+        case 'CREATE_SUCCESS':
+            return { ...state, loading: false };
+        case 'CREATE_FAIL':
+            return { ...state, loading: false };
+        default:
+            return state;
+    }
+};
 
 export default function DonHangScreen() {
     const navigate = useNavigate();
+
+    const [ { loading }, dispatch ] = useReducer( reducer, {
+        loading: false,
+    } );
+
     const { state, dispatch: ctxDispatch } = useContext( Store );
     const { giohang, userInfo } = state;
 
@@ -22,7 +44,36 @@ export default function DonHangScreen() {
     giohang.thue = round2( 0.15 * giohang.giahang );
     giohang.tongcong = giohang.giahang + giohang.cuocvanchuyen + giohang.thue;
 
-    const placeOrderHandler = async () => { };
+    const placeOrderHandler = async () => {
+        try {
+            dispatch( { type: 'CREATE_REQUEST' } );
+
+            const { data } = await Axios.post(
+                '/api/donhang',
+                {
+                    orderItems: giohang.vatpham,
+                    shippingAddress: giohang.shippingAddress,
+                    paymentMethod: giohang.paymentMethod,
+                    giahang: giohang.giahang,
+                    cuocvanchuyen: giohang.cuocvanchuyen,
+                    thue: giohang.thue,
+                    tongcong: giohang.tongcong,
+                },
+                {
+                    headers: {
+                        authorization: `Bearer ${ userInfo.token }`,
+                    },
+                }
+            );
+            ctxDispatch( { type: 'CART_CLEAR' } );
+            dispatch( { type: 'CREATE_SUCCESS' } );
+            localStorage.removeItem( 'vatpham' );
+            //navigate( `/donhang/${ data.donhang._id }` );
+        } catch ( err ) {
+            dispatch( { type: 'CREATE_FAIL' } );
+            toast.error( getError( err ) );
+        }
+    };
 
     useEffect( () => {
         if ( !giohang.paymentMethod ) {
@@ -131,6 +182,7 @@ export default function DonHangScreen() {
                                             Chốt đơn
                                         </Button>
                                     </div>
+                                    { loading && <LoadingBox></LoadingBox> }
                                 </ListGroup.Item>
                             </ListGroup>
                         </Card.Body>
