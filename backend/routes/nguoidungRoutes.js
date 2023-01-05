@@ -2,10 +2,19 @@ import express from 'express';
 import bcrypt from 'bcryptjs';
 import expressAsyncHandler from 'express-async-handler';
 import NguoiDung from '../models/nguoidungModel.js';
-import { isAuth, generateToken } from '../utils.js';
+import { isAuth, isAdmin, generateToken } from '../utils.js';
 
 const nguoidungRouter = express.Router();
 
+nguoidungRouter.get(
+    '/',
+    isAuth,
+    isAdmin,
+    expressAsyncHandler( async ( req, res ) => {
+        const users = await NguoiDung.find( {} );
+        res.send( users );
+    } )
+);
 nguoidungRouter.post(
     '/dangnhap',
     expressAsyncHandler( async ( req, res ) => {
